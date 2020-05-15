@@ -1,0 +1,7 @@
+Nombres de Alumno: Héctor Mauricio Zamudio Domínguez 2018671221
+		   Héctor Abraham Galván Garcia 2018670411
+Fecha de Entrega: 28/02/20
+Evidencia: Proyecto léxico: progrma
+Nombre del maestro: Karina Mejia Rodrínguez
+Programa Académico: Ing. Sistemas Computacionales
+Unidad de Aprendizaje: Compiladores
