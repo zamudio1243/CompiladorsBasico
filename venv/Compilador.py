@@ -63,7 +63,10 @@ class Compilador:
 
     def verificar (self, cadena):
         print("llega "+ cadena)
-        if ( cadena in self.logicos or  cadena in self.operadores or cadena in self.relacionales or cadena in self.reservadas):
+        if ( cadena in self.logicos or  
+        cadena in self.operadores or
+         cadena in self.relacionales 
+         or cadena in self.reservadas):
             return cadena
         elif cadena.isalnum:
             return "VALOR"
