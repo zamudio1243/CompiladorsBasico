@@ -4,7 +4,7 @@ class Compilador:
         self.archivo= open(nombreArchvio,"r")
         self.x=self.archivo.read(1)
         self.logicos=['AND','OR']
-        self.relacionales=['==','=','<','>','<=','=>','=<','>=','!=','=!','{','}','(',')']
+        self.relacionales=['==','=','<','>','<=','=>','=<','>=','!=','=!']
         self.operadores=['/','*','-','+',';']
         self.reservadas=['DEFINE','INT','FLOAT','STRING','VAR','CALL','IN','OUT','START','END','WHILE','DO','IF','THEN','ELSE','FUN']
 
@@ -46,7 +46,7 @@ class Compilador:
                     self.x = self.metodoCar()
         elif self.x.isdecimal(): #Es un numero
             valido += self.x
-            self.x = self.metodoCar()
+            self.x = self.metodoCar();
             while(self.x.isdecimal()):
                 valido+=self.x
                 self.x = self.metodoCar()
@@ -60,18 +60,36 @@ class Compilador:
                         valido+=self.x
                         self.x = self.metodoCar()
         return valido
+"""
+    def valAlfa(self,x):
+        if x is None:
+            return False
+        else:
+            mayusculas = ord(x) > 64 and ord(x) < 91
+            minusculas = ord(x) > 96 and ord(x) < 123
+            return mayusculas or minusculas
 
-    def verificar (self, cadena):
-        print("llega "+ cadena)
-        if ( cadena in self.logicos or  cadena in self.operadores or cadena in self.relacionales or cadena in self.reservadas):
-            return cadena
-        elif cadena.isalnum:
-            return "VALOR"
+    def valAlfaNum(self,x):
+        if x is None:
+            return False
+        else:
+            mayusculas = ord(x) > 64 and ord(x) < 91
+            minusculas = ord(x) > 96 and ord(x) < 123
+            numeros = ord(x) > 47 and ord(x) < 58
+            return  mayusculas or minusculas or numeros
+
+    def valNum(self,x):
+        if x is None:
+            return False
+        else:
+            return ord(x) > 47 and ord(x) < 58
+"""
+
 
 def main():
     file = "RegistroCaracteres.txt"
     comp = Compilador(file)
-    for i in range(0,6):
-        print(comp.verificar(comp.generador()))
+    for i in range(0,5):
+        print(comp.generador())
 
 main()
