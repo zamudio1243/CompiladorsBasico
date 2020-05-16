@@ -7,6 +7,8 @@ class Compilador:
         self.relacionales=['==','=','<','>','<=','=>','=<','>=','!=','=!','{','}','(',')']
         self.operadores=['/','*','-','+',';']
         self.reservadas=['DEFINE','INT','FLOAT','STRING','VAR','CALL','IN','OUT','START','END','WHILE','DO','IF','THEN','ELSE','FUN']
+        self.guardados=[]
+        self.numeros=["0","1","2","3","4","5","6","7","8","9","."]
 
     def metodoCar(self):
         return  self.archivo.read(1)
@@ -62,19 +64,25 @@ class Compilador:
         return valido
 
     def verificar (self, cadena):
-        print("llega "+ cadena)
+        print('Llego: '+cadena)
         if ( cadena in self.logicos or  
         cadena in self.operadores or
          cadena in self.relacionales 
-         or cadena in self.reservadas):
+         or cadena in self.reservadas): #Reservados
             return cadena
-        elif cadena.isalnum:
-            return "VALOR"
+        else:
+            try:
+                if isinstance(float(cadena),float):
+                    return "VALOR"   
+            except:
+                self.guardados.append(cadena)
+                return "NAME"
+                
 
 def main():
     file = "RegistroCaracteres.txt"
     comp = Compilador(file)
-    for i in range(0,6):
+    for i in range(0,12):
         print(comp.verificar(comp.generador()))
-
+    print(comp.guardados)
 main()
