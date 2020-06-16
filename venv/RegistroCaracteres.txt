@@ -1,0 +1,9 @@
+START
+    VAR INT cosa = 16 ;
+    IF(cosa == 15) THEN
+        cosa=25;
+    ELSE
+        WHILE (cosa != 1) DO
+        cosa=5;
+    END
+END
