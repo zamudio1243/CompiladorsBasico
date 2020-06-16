@@ -95,6 +95,7 @@ class Compilador:
             tok = self.lexico(self.pointer)
             if(tok== "END"):
                 print()
+
                 print("Se compilo con exito")
             else:
                 self.errores("END")
