@@ -1,2 +1,0 @@
-VAR INT cosa1 = 98.25;
-VAR INT cosa2 = 98.25;
