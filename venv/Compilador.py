@@ -1,4 +1,6 @@
 import  os
+
+
 class Compilador:
     def __init__(self, nombreArchvio):
         self.archivo= open(nombreArchvio,"r")
@@ -8,6 +10,8 @@ class Compilador:
         self.operadores=['/','*','-','+',';']
         self.reservadas=['DEFINE','INT','FLOAT','STRING','VAR','CALL','IN','OUT','START','END','WHILE','DO','IF','THEN','ELSE','FUN']
         self.guardados=[]
+        self.tipos=[]
+        self.valores=[]
         self.numeros=["0","1","2","3","4","5","6","7","8","9","."]
         self.sintactico=[]
         self.pointer=0
@@ -76,10 +80,15 @@ class Compilador:
         else:
             try:
                 if isinstance(float(cadena),float):
+                    aux = self.sintactico[len(self.sintactico)-3]
+                    #print(aux)
+                    if(aux == "INT" or aux == "FLOAT" or aux == "STRING"):
+                        self.valores.append(cadena)
                     self.sintactico.append("VALOR")
                     return "VALOR"   
             except:
-                self.guardados.append(cadena)
+                if(not(cadena in self.guardados)):
+                    self.guardados.append(cadena)
                 self.sintactico.append("NAME")
                 return "NAME"
 
@@ -123,17 +132,13 @@ class Compilador:
                 self.NAME()
                 self.pointer += 1
                 tok = self.lexico(self.pointer)
-                if (tok == "="):
-                    self.VALOR()
-                    self.pointer += 1
-                    tok = self.lexico(self.pointer)
-                    if(tok == ";"):
-                        print("",end="")
-                        #todo bien, todo correcto?
-                    else:
-                        self.errores(";")
+
+                if(tok == ";"):
+                    print("",end="")
+                    #todo bien, todo correcto?
                 else:
-                    self.errores("=")
+                    self.errores(";")
+
             else:
                 self.errores("DEFINE")
         else:
@@ -224,14 +229,13 @@ class Compilador:
         self.pointer += 1
         tok = self.lexico(self.pointer)
         if(tok == "INT"):
-            print("",end="")
-            # Todo bien,todo correcto?
+            self.tipos.append(tok)
         elif(tok == "FLOAT"):
-            print("",end="")
-            # Todo bien,todo correcto?
+            self.tipos.append(tok)
+
         elif(tok == "STRING"):
-            print("",end="")
-            # Todo bien,todo correcto?
+            self.tipos.append(tok)
+
         else:
             self.errores("INT o FLOAT o STRING")
 
@@ -441,8 +445,11 @@ class Compilador:
 def main():
     file = "./RegistroCaracteres.txt"
     comp = Compilador(file)
-    for i in range(0,32):
+    for i in range(0,38):
         print(comp.verificar(comp.generador()) , end=" ")
     comp.BLOQUE()
+    print(comp.guardados)
+    print(comp.tipos)
+    print(comp.valores)
 
 main()

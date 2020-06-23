@@ -1,5 +1,6 @@
 START
-    VAR INT cosa = 16 ;
+    DEFINE INT cosa1 = 177;
+    VAR FLOAT cosa = 16.0 ;
     IF(cosa == 15) THEN
         cosa=25;
     ELSE

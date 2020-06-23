@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="797cc08e-3801-40b1-8102-b269ce5613bf" name="Default Changelist" comment="" />
+    <list default="true" id="797cc08e-3801-40b1-8102-b269ce5613bf" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/Compilador.py" beforeDir="false" afterPath="$PROJECT_DIR$/venv/Compilador.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/venv/RegistroCaracteres.txt" beforeDir="false" afterPath="$PROJECT_DIR$/venv/RegistroCaracteres.txt" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
