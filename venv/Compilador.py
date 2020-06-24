@@ -13,6 +13,7 @@ class Compilador:
         self.tipos=[]
         self.valores=[]
         self.numeros=["0","1","2","3","4","5","6","7","8","9","."]
+        self.input=[]
         self.sintactico=[]
         self.pointer=0
 
@@ -70,6 +71,7 @@ class Compilador:
         return valido
 
     def verificar (self, cadena):
+        self.input.append(cadena)
         #print("",end="")('Llego: '+cadena)
         if ( cadena in self.logicos or  
         cadena in self.operadores or
@@ -87,7 +89,14 @@ class Compilador:
                     self.sintactico.append("VALOR")
                     return "VALOR"   
             except:
-                if(not(cadena in self.guardados)):
+                aux = self.sintactico[len(self.sintactico) - 1]
+                aux2 = self.sintactico[len(self.sintactico)-3]
+                if (aux2 == "STRING"):
+                    self.valores.append(cadena)
+                    self.sintactico.append("VALOR")
+                    return "VALOR"
+
+                elif (aux == "INT" or aux == "FLOAT" or aux == "STRING"):
                     self.guardados.append(cadena)
                 self.sintactico.append("NAME")
                 return "NAME"
@@ -116,10 +125,20 @@ class Compilador:
         if(tok !="IF" and tok != "WHILE" and tok!= "CALL"
         and tok != "OUT" and tok !="NAME" and tok!= "IN"):
             self.pointer -= 1
-            self.DEFINE()
-            self.VAR()
-            #self.NAME()
-            self.FUN()
+            if(tok == "DEFINE"):
+                self.DEFINE()
+
+                self.CABECERA()
+            elif(tok == "VAR"):
+                self.VAR()
+
+                self.CABECERA()
+            elif (tok == "FUN"):
+                self.FUN()
+
+                self.CABECERA()
+            else:
+                self.errores(" DEFINE o VAR o FUN")
         else:
             self.pointer -= 1
 
@@ -177,15 +196,6 @@ class Compilador:
                     if(tok == "VALOR"):
                         print("",end="")
                         # todo bien, todo correcto
-                        """
-                        self.pointer += 1
-                        tok = self.lexico(self.pointer)
-                        if(tok == ";"):
-                            print("",end="")
-                            # todo bien, todo correcto
-                        else:
-                            self.errores(";")
-                        """
                     else:
                         self.errores("VALOR")
                 else:
@@ -442,14 +452,51 @@ class Compilador:
     def errores(self,aux):
         print("Se esperaba "+aux)
 
+    def semantico(self):
+
+        #Verificamos duplicidad en nombres de variables
+        error = False
+        for i in range(0, len(self.guardados)):
+            aux = self.guardados[i]
+            for j in range(i+1, len(self.guardados)):
+                error = aux == self.guardados[j]
+                if(error):
+                    print("Repetiste variable")
+                    error = False
+        #Verificamos coherencia en valor y tipo de dato
+        error = False
+        for i in range(0, len(self.tipos)):
+            if(self.tipos[i] == 'INT'):
+                try:
+                    result = isinstance(int(self.valores[i]),int)
+                except:
+                    print(self.guardados[i]+" no es entero")
+            elif(self.tipos[i] == 'FLOAT'):
+                result = isinstance(float(self.valores[i]), float)
+                if not (result):
+                    print(self.guardados[i] + " no es float")
+            elif(self.tipos[i] == 'STRING'):
+                try:
+                    result = isinstance(float(self.valores[i]), float)
+                    if result:
+                        print(self.guardados[i] + " no es string")
+                except:
+                    print()
+
+
+
+
 def main():
     file = "./RegistroCaracteres.txt"
     comp = Compilador(file)
-    for i in range(0,38):
+    for i in range(0,62):
         print(comp.verificar(comp.generador()) , end=" ")
     comp.BLOQUE()
+    #print(comp.input)
     print(comp.guardados)
     print(comp.tipos)
     print(comp.valores)
+
+    comp.semantico()
 
 main()
