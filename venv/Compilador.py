@@ -453,7 +453,38 @@ class Compilador:
                 except:
                     print()
         #Verificamos si se usa y no esta declarada
+        for i in range(0,len(self.sintactico)):
+            if(self.sintactico[i]=="NAME"):
+                if not(self.input[i] in self.guardados):
+                    print("No se declaro "+self.input[i])
+        #Verificamos si coinciden los tipos en operaciones aritmeticas
         error=False
+        aux=self.relacionales
+        aux.remove("{")
+        aux.remove("}")
+        aux.remove("(")
+        aux.remove(")")
+        for i in range(0,len(self.input)):
+            if(self.input[i] in aux or self.input[i] in self.operadores
+            or self.input[i] in self.logicos):
+                if(self.input[i-1] in self.guardados or self.input[i+1] in self.guardados):
+                    aux1= self.input[i-1]
+                    aux2= self.input[i+1]
+                    
+                    try:
+                            if not(isinstance(aux1, int) and isinstance(aux2, int)):
+                                print("No coinciden los tipos de " + aux1 + " y " + aux2)
+                    except:
+                        try:
+                            if not(isinstance(aux1, float) and isinstance(aux2, float)):
+                                print("No coinciden los tipos de " + aux1 + " y " + aux2)  
+                        except:
+                            try:
+                                if not(isinstance(aux1, float) and isinstance(aux2, float)):
+                                        print("No coinciden los tipos de " + aux1 + " y " + aux2)
+                            except:
+                                print()
+
 
 def main():
     file = "./RegistroCaracteres.txt"
@@ -461,10 +492,10 @@ def main():
     for i in range(0,56):
         print(comp.verificar(comp.generador()) , end=" ")
     comp.BLOQUE()
-    #print(comp.input)
-    print(comp.guardados)
-    print(comp.tipos)
-    print(comp.valores)
+    #print(comp.input) """
+    #print(comp.guardados)
+    #print(comp.tipos)
+    #print(comp.valores)
     comp.semantico()
 
 main()
