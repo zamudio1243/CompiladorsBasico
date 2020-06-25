@@ -1,6 +1,5 @@
 import  os
 
-
 class Compilador:
     def __init__(self, nombreArchvio):
         self.archivo= open(nombreArchvio,"r")
@@ -19,6 +18,7 @@ class Compilador:
 
     def metodoCar(self):
         return  self.archivo.read(1)
+
     def generador(self):
         valido = ""
         if not(self.x.isalpha() or self.x.isdecimal()):
@@ -72,7 +72,6 @@ class Compilador:
 
     def verificar (self, cadena):
         self.input.append(cadena)
-        #print("",end="")('Llego: '+cadena)
         if ( cadena in self.logicos or  
         cadena in self.operadores or
          cadena in self.relacionales 
@@ -83,7 +82,6 @@ class Compilador:
             try:
                 if isinstance(float(cadena),float):
                     aux = self.sintactico[len(self.sintactico)-3]
-                    #print(aux)
                     if(aux == "INT" or aux == "FLOAT" or aux == "STRING"):
                         self.valores.append(cadena)
                     self.sintactico.append("VALOR")
@@ -95,7 +93,6 @@ class Compilador:
                     self.valores.append(cadena)
                     self.sintactico.append("VALOR")
                     return "VALOR"
-
                 elif (aux == "INT" or aux == "FLOAT" or aux == "STRING"):
                     self.guardados.append(cadena)
                 self.sintactico.append("NAME")
@@ -113,12 +110,12 @@ class Compilador:
             tok = self.lexico(self.pointer)
             if(tok== "END"):
                 print()
-
                 print("Se compilo con exito")
             else:
                 self.errores("END")
         else:
             self.errores("START")
+
     def CABECERA(self):
         self.pointer += 1
         tok = self.lexico(self.pointer)
@@ -127,15 +124,12 @@ class Compilador:
             self.pointer -= 1
             if(tok == "DEFINE"):
                 self.DEFINE()
-
                 self.CABECERA()
             elif(tok == "VAR"):
                 self.VAR()
-
                 self.CABECERA()
             elif (tok == "FUN"):
                 self.FUN()
-
                 self.CABECERA()
             else:
                 self.errores(" DEFINE o VAR o FUN")
@@ -151,13 +145,10 @@ class Compilador:
                 self.NAME()
                 self.pointer += 1
                 tok = self.lexico(self.pointer)
-
                 if(tok == ";"):
                     print("",end="")
-                    #todo bien, todo correcto?
                 else:
                     self.errores(";")
-
             else:
                 self.errores("DEFINE")
         else:
@@ -174,14 +165,12 @@ class Compilador:
                 tok = self.lexico(self.pointer)
                 if(tok == ";"):
                     print("",end="")
-                    #todo bien, todo correcto
                 else:
                     self.errores(";")
             else:
                 self.errores("VAR")
         else:
             self.pointer -= 1
-
 
     def NAME(self):
         self.pointer += 1
@@ -195,14 +184,12 @@ class Compilador:
                     tok = self.lexico(self.pointer)
                     if(tok == "VALOR"):
                         print("",end="")
-                        # todo bien, todo correcto
                     else:
                         self.errores("VALOR")
                 else:
                     self.errores("VALOR")
             else:
                 self.errores("NAME")
-
         else:
             self.pointer -= 1
 
@@ -223,7 +210,6 @@ class Compilador:
                         tok = self.lexico(self.pointer)
                         if(tok == "}"):
                             print("",end="")
-                            #Todo bien,todo correcto?
                         else:
                             self.errores("}")
                     else:
@@ -242,10 +228,8 @@ class Compilador:
             self.tipos.append(tok)
         elif(tok == "FLOAT"):
             self.tipos.append(tok)
-
         elif(tok == "STRING"):
             self.tipos.append(tok)
-
         else:
             self.errores("INT o FLOAT o STRING")
 
@@ -264,7 +248,6 @@ class Compilador:
                 if(tok == "END"):
                     self.pointer -= 1
                     print("",end="")
-                    # Todo bien,todo correcto?
                 else:
                     self.errores("END")
             else:
@@ -274,25 +257,22 @@ class Compilador:
             self.CONDICION()
             self.pointer += 1
             tok = self.lexico(self.pointer)
-            if (tok == "DO"):                ############# No cerramos el while
+            if (tok == "DO"):                # No cerramos el while
                 self.PROPOSICION()
                 self.pointer += 1
                 tok = self.lexico(self.pointer)
                 if (tok == "END"):
                     print("",end="")
-                    # Todo bien,todo correcto?
                 else:
                     self.errores("END")
             else:
                 self.errores("DO")
-
         elif (tok == "IN"):
             self.NAME()
             self.pointer += 1
             tok = self.lexico(self.pointer)
             if(tok == ";"):
                 print("",end="")
-                # Todo bien,todo correcto?
             else:
                 self.errores(";")
         elif (tok == "OUT"):
@@ -301,7 +281,6 @@ class Compilador:
             tok = self.lexico(self.pointer)
             if (tok == ";"):
                 print("",end="")
-                # Todo bien,todo correcto?
             else:
                 self.errores(";")
         elif (tok == "CALL"):
@@ -310,7 +289,6 @@ class Compilador:
             tok = self.lexico(self.pointer)
             if (tok == ";"):
                 print("",end="")
-                # Todo bien,todo correcto?
             else:
                 self.errores(";")
         elif (tok == "NAME"):
@@ -323,7 +301,6 @@ class Compilador:
                 tok = self.lexico(self.pointer)
                 if (tok == ";"):
                     print("",end="")
-                    # Todo bien,todo correcto?
                 else:
                     self.errores(";")
             else:
@@ -337,7 +314,6 @@ class Compilador:
         if(tok != "END"):
             if(tok == "ELSE"):
                 self.PROPOSICION()
-
             else:
                 self.errores("END")
         else:
@@ -350,10 +326,8 @@ class Compilador:
         and tok != ";"):
             if (tok == "NAME"):
                 print("",end="")
-                # Todo bien,todo correcto?
             elif (tok == "VALOR"):
                 print("",end="")
-                # Todo bien,todo correcto?
             else:
                 self.errores("NAME o VALOR")
         else:
@@ -389,7 +363,6 @@ class Compilador:
             tok = self.lexico(self.pointer)
             if (tok == ")"):
                 print("",end="")
-                # Todo bien,todo correcto?
             else:
                 self.errores(")")
         else:
@@ -447,13 +420,10 @@ class Compilador:
         else:
             self.pointer -= 1
 
-
-
     def errores(self,aux):
         print("Se esperaba "+aux)
 
     def semantico(self):
-
         #Verificamos duplicidad en nombres de variables
         error = False
         for i in range(0, len(self.guardados)):
@@ -482,21 +452,19 @@ class Compilador:
                         print(self.guardados[i] + " no es string")
                 except:
                     print()
-
-
-
+        #Verificamos si se usa y no esta declarada
+        error=False
 
 def main():
     file = "./RegistroCaracteres.txt"
     comp = Compilador(file)
-    for i in range(0,62):
+    for i in range(0,56):
         print(comp.verificar(comp.generador()) , end=" ")
     comp.BLOQUE()
     #print(comp.input)
     print(comp.guardados)
     print(comp.tipos)
     print(comp.valores)
-
     comp.semantico()
 
 main()
