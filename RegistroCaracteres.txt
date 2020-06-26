@@ -1,14 +1,14 @@
 START
     DEFINE INT cosa = 1;
     DEFINE INT cosa2 = 15;
-    VAR FLOAT cosa3 = 12.0;
-    VAR STRING cosa4 = Hola;
-    VAR FLOAT cosa5 = 16.0;
+    VAR FLOAT cosa1 = 12.0;
+    VAR STRING cosa3 = Hola;
+    VAR FLOAT cosa4 = 16.0;
 
-    IF(cosa5 == 15) THEN
-        cosa=cosa5;
+    IF(cosa == 1) THEN
+        cosa=xx;
     ELSE
-        WHILE (cosa5 != 1) DO
-        cosa=1.5;
+        WHILE (cosa != 1) DO
+        cosa=5;
     END
 END

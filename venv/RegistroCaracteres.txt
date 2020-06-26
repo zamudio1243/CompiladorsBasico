@@ -5,8 +5,8 @@ START
     VAR STRING cosa3 = Hola;
     VAR FLOAT cosa4 = 16.0;
 
-    IF(cosa == 15) THEN
-        cosa=25;
+    IF(cosa == 1) THEN
+        cosa=xx;
     ELSE
         WHILE (cosa != 1) DO
         cosa=5;
