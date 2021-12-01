@@ -1,5 +1,6 @@
 import os
-
+#Héctor Galván
+#Héctor Zamudio
 
 class Compilador:
     def __init__(self, nombreArchvio):
